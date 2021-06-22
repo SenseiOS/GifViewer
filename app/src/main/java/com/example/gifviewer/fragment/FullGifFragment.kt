@@ -28,7 +28,7 @@ class FullGifFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Glide.with(this).load(urlGif).into(fullGif)
+  //      Glide.with(this).load(urlGif).into(fullGif)
         return inflater.inflate(R.layout.fragment_full_gif,container,false)
     }
 

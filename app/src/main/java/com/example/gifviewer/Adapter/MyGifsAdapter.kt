@@ -1,6 +1,9 @@
 package com.example.gifviewer.Adapter
 
+import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +20,10 @@ import kotlinx.android.synthetic.main.layout_gif_item.view.*
 
 class MyGifsAdapter(private val context: Context, private val gifsList: List<Data>): RecyclerView.Adapter<MyGifsAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        var itemView = LayoutInflater.from(context).inflate(R.layout.layout_gif_item, parent, false)
-        return MyViewHolder(itemView)
+        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_gif_item, parent, false)
+        val myHolder = MyViewHolder(itemView)
+       // myHolder.context=context
+        return myHolder
     }
 
     override fun getItemCount(): Int {
@@ -27,21 +32,18 @@ class MyGifsAdapter(private val context: Context, private val gifsList: List<Dat
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Glide.with(holder.itemView).load(gifsList[position].images.original.url).into(holder.image)
-        //Picasso.get().load(gifsList[position].url).into(holder.image)
         holder.txt_name.text = gifsList[position].title
         holder.txt_author.text = gifsList[position].username
         holder.txt_date.text = gifsList[position].import_datetime
         holder.itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
-                if(position==1) {
                     val activity = v!!.context as AppCompatActivity
-                    //val fullGifFragment = FullGifFragment()
-                    val fullGifFragment = FullGifFragment.newInstance(gifsList[position].images.original.url)
+                    val fullGifFragment = FullGifFragment()
+                    //val fullGifFragment = FullGifFragment.newInstance(gifsList[position].images.original.url)
                     activity.supportFragmentManager.beginTransaction()
-                        .replace(R.id.recyclerGifsList, fullGifFragment).addToBackStack(null)
+                        .replace(R.id.rec, fullGifFragment).addToBackStack(null)
                         .commit()
-                }
-            }
+        }
 
         })
     }
@@ -51,6 +53,7 @@ class MyGifsAdapter(private val context: Context, private val gifsList: List<Dat
         var txt_name : TextView
         var txt_author : TextView
         var txt_date : TextView
+        lateinit var context:Context
 
         init {
             image = itemView.gif
