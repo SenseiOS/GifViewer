@@ -38,10 +38,10 @@ class MyGifsAdapter(private val context: Context, private val gifsList: List<Dat
         holder.itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
                     val activity = v!!.context as AppCompatActivity
-                    val fullGifFragment = FullGifFragment()
-                    //val fullGifFragment = FullGifFragment.newInstance(gifsList[position].images.original.url)
+                   // val fullGifFragment = FullGifFragment()
+                    val fullGifFragment = FullGifFragment.newInstance(gifsList[position].images.original.url)
                     activity.supportFragmentManager.beginTransaction()
-                        .replace(R.id.rec, fullGifFragment).addToBackStack(null)
+                        .replace(R.id.recyclerGifsList, fullGifFragment).addToBackStack(null)
                         .commit()
         }
 

@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.gifviewer.R
 import kotlinx.android.synthetic.main.fragment_full_gif.*
+import kotlinx.android.synthetic.main.fragment_full_gif.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -28,8 +30,10 @@ class FullGifFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-  //      Glide.with(this).load(urlGif).into(fullGif)
-        return inflater.inflate(R.layout.fragment_full_gif,container,false)
+        val view = inflater.inflate(R.layout.fragment_full_gif,container,false)
+        Glide.with(this).load(urlGif).into(view.fullGif)
+        return view
+
     }
 
     companion object {
