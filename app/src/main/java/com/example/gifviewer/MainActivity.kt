@@ -1,17 +1,19 @@
 package com.example.gifviewer
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gifviewer.Interface.RetrofitService
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gifviewer.Adapter.MyGifsAdapter
 import com.example.gifviewer.Common.Common
-import com.example.gifviewer.Model.Data
+import com.example.gifviewer.Interface.RetrofitService
 import com.example.gifviewer.Model.Gifs
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +28,11 @@ class MainActivity : AppCompatActivity() {
         mService = Common.retrofitService
 
         recyclerGifsList.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(this)
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            layoutManager = LinearLayoutManager(this)
+        else
+            layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+
         recyclerGifsList.layoutManager = layoutManager
 
 
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<Gifs>, response: Response<Gifs>) {
-                adapter = MyGifsAdapter(baseContext, (response.body() as Gifs).data)
+                adapter = MyGifsAdapter(baseContext, response.body() as Gifs)
                 adapter.notifyDataSetChanged()
                 recyclerGifsList.adapter = adapter
             }
