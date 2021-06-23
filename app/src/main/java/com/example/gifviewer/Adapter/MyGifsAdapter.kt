@@ -1,16 +1,13 @@
 package com.example.gifviewer.Adapter
 
-import android.app.Activity
-import android.content.ContentValues.TAG
+
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gifviewer.Model.Data
@@ -20,9 +17,8 @@ import kotlinx.android.synthetic.main.layout_gif_item.view.*
 
 class MyGifsAdapter(private val context: Context, private val gifsList: List<Data>): RecyclerView.Adapter<MyGifsAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_gif_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.layout_gif_item, parent, false)
         val myHolder = MyViewHolder(itemView)
-       // myHolder.context=context
         return myHolder
     }
 
@@ -38,10 +34,9 @@ class MyGifsAdapter(private val context: Context, private val gifsList: List<Dat
         holder.itemView.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
                     val activity = v!!.context as AppCompatActivity
-                   // val fullGifFragment = FullGifFragment()
                     val fullGifFragment = FullGifFragment.newInstance(gifsList[position].images.original.url)
                     activity.supportFragmentManager.beginTransaction()
-                        .replace(R.id.recyclerGifsList, fullGifFragment).addToBackStack(null)
+                        .replace(R.id.rec, fullGifFragment).addToBackStack(null)
                         .commit()
         }
 

@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var mService : RetrofitService
     lateinit var layoutManager: LinearLayoutManager
     lateinit var adapter : MyGifsAdapter
-    //lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +29,11 @@ class MainActivity : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this)
         recyclerGifsList.layoutManager = layoutManager
 
-       // dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).build()
 
         getAllGifList()
     }
 
     private fun getAllGifList() {
-        //dialog.show()
 
         mService.getGifList().enqueue(object : Callback<Gifs> {
             override fun onFailure(call: Call<Gifs>, t: Throwable) {
